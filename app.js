@@ -4,11 +4,14 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const express = require("express");
 const favicon = require("serve-favicon");
-const hbs = require("hbs");
 const mongoose = require("mongoose");
 const logger = require("morgan");
 const path = require("path");
-const flash = require("connect-flash");
+
+const session = require("express-session");
+const passport = require("passport");
+
+require("./configs/passport");
 
 mongoose
   .connect("mongodb://localhost/petsapp-react", {
@@ -31,7 +34,29 @@ const debug = require("debug")(
   `${app_name}:${path.basename(__filename).split(".")[0]}`
 );
 
+const MongoStore = require("connect-mongo")(session);
+
 const app = express();
+
+//Create user session that lasts 24 hours
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    cookie: { maxAge: 24 * 60 * 60 * 1000 },
+    saveUninitialized: false,
+    resave: true,
+    store: new MongoStore({
+      // when the session cookie has an expiration date
+      // connect-mongo will use it, otherwise it will create a new
+      // one and use ttl - time to live - in that case one day
+      mongooseConnection: mongoose.connection,
+      ttl: 24 * 60 * 60 * 1000,
+    }),
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(logger("dev"));
 app.use(bodyParser.json());
@@ -46,92 +71,22 @@ app.use(
   })
 );
 
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "hbs");
 app.use(express.static(path.join(__dirname, "public")));
 app.use(favicon(path.join(__dirname, "public", "images", "favicon.ico")));
-hbs.registerPartials(path.join(__dirname, "views", "partials"));
 
 app.locals.title = "PetsApp";
 
-const session = require("express-session");
-const MongoStore = require("connect-mongo")(session);
-
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-
-const bcrypt = require("bcrypt");
-
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    cookie: { maxAge: 24 * 60 * 60 * 1000 },
-    saveUninitialized: true,
-    resave: true,
-    store: new MongoStore({
-      mongooseConnection: mongoose.connection,
-      ttl: 24 * 60 * 60 * 1000,
-    }),
-  })
-);
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-const User = require("./models/User");
-
-passport.serializeUser((user, done) => {
-  done(null, user._id);
-});
-passport.deserializeUser((id, done) => {
-  User.findById(id)
-    .then((dbUser) => {
-      done(null, dbUser);
-      hbs.registerHelper("isid", function (value) {
-        return JSON.stringify(value) !== JSON.stringify(dbUser._id);
-      });
-    })
-    .catch((err) => {
-      done(err);
-    });
-});
-
-passport.use(
-  new LocalStrategy(
-    {
-      usernameField: "username",
-      passwordField: "password",
-    },
-    (username, password, done) => {
-      User.findOne({ username: username })
-        .then((found) => {
-          if (found === null) {
-            return done(null, false, { message: "Wrong credentials" });
-          }
-          if (!bcrypt.compareSync(password, found.password)) {
-            return done(null, false, { message: "Wrong credentials" });
-          }
-          done(null, found);
-        })
-        .catch((err) => {
-          done(err, false);
-        });
-    }
-  )
-);
-
-
 const index = require("./routes/index");
 app.use("/", index);
-const auth = require("./routes/auth");
-app.use("/", auth);
-const pets = require("./routes/pets");
-app.use("/", pets);
-const users = require("./routes/users");
-app.use("/", users);
-const match = require("./routes/match");
-app.use("/", match);
-const message = require("./routes/message");
-app.use("/", message);
+// const auth = require("./routes/auth");
+// app.use("/", auth);
+// const pets = require("./routes/pets");
+// app.use("/", pets);
+// const users = require("./routes/users");
+// app.use("/", users);
+// const match = require("./routes/match");
+// app.use("/", match);
+// const message = require("./routes/message");
+// app.use("/", message);
 
 module.exports = app;
