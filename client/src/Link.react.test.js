@@ -1,7 +1,7 @@
 // Link.react.test.js
 import React from 'react';
 import renderer from 'react-test-renderer';
-import Link from '../Link.react';
+import Link from './Link.react';
 
 test('Link changes the class when hovered', () => {
   const component = renderer.create(
