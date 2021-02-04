@@ -18,7 +18,7 @@ export default createGlobalStyle`
     font-size: 12px;
     margin: 0 50px;
     ${'' /* font-family: 'Magnum'; */}
-    ${'' /* background-color: #233554; */}
+    background-color: #fff0f6;
     line-height: 1.4;
     color: #1d0029
   }

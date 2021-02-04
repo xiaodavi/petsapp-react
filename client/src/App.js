@@ -2,13 +2,14 @@
 import './App.css';
 import React from 'react'
 import Pages from './pages/Pages';
+import GlobalStyle from './components/GlobalStyle'
 
 function App() {
   return (
-    <div className="App">
-      <h1>Hi</h1>
-      <Pages />
-    </div>
+    <>
+    <GlobalStyle />
+    <Pages />
+    </>
   );
 }
 
