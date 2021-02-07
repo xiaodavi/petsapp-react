@@ -78,8 +78,8 @@ app.locals.title = "PetsApp";
 
 const index = require("./routes/index");
 app.use("/", index);
-// const auth = require("./routes/auth");
-// app.use("/", auth);
+const auth = require("./routes/auth");
+app.use("/api/auth", auth);
 // const pets = require("./routes/pets");
 // app.use("/", pets);
 // const users = require("./routes/users");
