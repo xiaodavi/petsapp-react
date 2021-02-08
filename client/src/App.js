@@ -10,6 +10,7 @@ import { Switch } from 'react-router-dom'
 import Signup from './pages/Signup'
 import Home from './pages/Home';
 import Login from './pages/Login';
+import RegisterPets from './pages/RegisterPets';
 
 function App(props) {
 
@@ -21,10 +22,17 @@ function App(props) {
     <Switch>
     <Route exact path="/" 
     render={ (props) => <Home setUser={setUser} user={user} {...props} /> } />
+    
     <Route exact path="/signup"  
-    render={ (props) => <Signup setUser={setUser} user={user} {...props}/> }
-    />
+    render={ (props) => <Signup setUser={setUser} user={user} {...props}/> } />
+    
     <Route exact path="/login" 
+    render={ (props) => <Login setUser={setUser} user={user} {...props}/> } />
+    
+    <Route exact path="/register-pets" 
+    render={ (props) => <RegisterPets setUser={setUser} user={user} {...props}/> } />
+    
+    <Route exact path="/profile" 
     render={ (props) => <Login setUser={setUser} user={user} {...props}/> } />
     </Switch>
   );
