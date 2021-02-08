@@ -3,16 +3,14 @@ const {Schema, model} = mongoose;
 
 const petSchema = new Schema (
   {
-    name: String,
+    petsname: String,
     breed: String,
-    image: {
-      data: Buffer,
-      contentType: String
-    },
+    petsimage: String,
     owner: {
       type: Schema.Types.ObjectId,
       ref: "User",
     },
+    publicId: String
   }, 
 
   {
