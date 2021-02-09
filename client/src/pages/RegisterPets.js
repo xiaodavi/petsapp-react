@@ -6,13 +6,14 @@ import axios from 'axios'
 
 
 const RegisterPets = (props) => {
-  const url = process.env.BASE_URL;
-  const preset = process.env.PRESET;
+  const url = "https://res.cloudinary.com/dynyu9aql/image/upload/";
+  const preset = "flmqoaes";
 
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false) 
   
   const fileSelectedHandler = (event) => {
+    
     console.log(event.target.files)
     setImage(event.target.files[0]);
   }
@@ -21,13 +22,15 @@ const RegisterPets = (props) => {
     const formData = new FormData();
     formData.append('file', image);
     formData.append('upload_preset', preset)
-    console.log(formData)
+    console.log(formData);
+    // axios.post(url, formData)
+    // .then(res => console.log(res))
     try {
       // alert("hhh")
       setLoading(true);
       console.log(loading)
       const res = await axios.post(url, formData);
-      console.log(res);
+      console.log("hshshs",res);
       const imageUrl = res.data.secure_url;
       console.log(imageUrl)
       const image = await axios.post(`/api/pets/${props.user._id}/register-pets`, 
