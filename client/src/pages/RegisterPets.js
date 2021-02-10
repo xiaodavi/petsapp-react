@@ -6,44 +6,24 @@ import axios from 'axios'
 
 
 const RegisterPets = (props) => {
-  const url = "https://res.cloudinary.com/dynyu9aql/image/upload/";
+  const url = "https://api.cloudinary.com/v1_1/dynyu9aql/image/upload";
   const preset = "flmqoaes";
 
-  const [image, setImage] = useState("");
+  const [imageSelected, setImageSelected] = useState("");
   const [loading, setLoading] = useState(false) 
   
-  const fileSelectedHandler = (event) => {
+  const uploadImage = () => {
     
-    console.log(event.target.files)
-    setImage(event.target.files[0]);
+    // console.log(files)
+    // setImage(files[0])
+    const formData = new FormData()
+    formData.append('file', imageSelected)
+    formData.append('upload_preset', preset)
+    axios.post(url, formData).then((res) => {
+      console.log(res)
+    })
   }
 
-  const fileUploadHandler = async () => {
-    const formData = new FormData();
-    formData.append('file', image);
-    formData.append('upload_preset', preset)
-    console.log(formData);
-    // axios.post(url, formData)
-    // .then(res => console.log(res))
-    try {
-      // alert("hhh")
-      setLoading(true);
-      console.log(loading)
-      const res = await axios.post(url, formData);
-      console.log("hshshs",res);
-      const imageUrl = res.data.secure_url;
-      console.log(imageUrl)
-      const image = await axios.post(`/api/pets/${props.user._id}/register-pets`, 
-      {
-        imageUrl
-      });
-      setLoading(false);
-      setImage(image.data);
-      console.log(image.data)
-    } catch (err) {
-      console.error(err)
-    }
-  }
 
   // useEffect(() => {
   //   async function fetchImage() {
@@ -57,12 +37,16 @@ const RegisterPets = (props) => {
   return (
     <div>
     {/* <form> */}
-      <label htmlFor="petsimage">Upload an Image</label>
-      <input type="file" onChange={fileSelectedHandler} name="petsimage" id="petsimage"/>
+      {/* <label htmlFor="petsimage">Upload an Image</label> */}
+      <input type="file" 
+      onChange={(event) => {
+        setImageSelected(event.target.files[0])
+      }} 
+      />
       {/* <p>Filename: {file.name}</p>
       <p>File type: {file.type}</p>
       <p>File size: {file.size} bytes</p> */}
-      {image && <ImageThumb image={image} />} 
+      {imageSelected && <ImageThumb image={imageSelected} />} 
      
 
       {/* <label htmlFor="petsname">Name: </label>
@@ -73,7 +57,7 @@ const RegisterPets = (props) => {
       <input id="breed" name="breed" value={props.breed} 
       onChange={props.handleChange} type="text" /> */}
       
-      <button onClick={fileUploadHandler}>Submit</button>
+      <button onClick={uploadImage}>Submit</button>
       {/* </form> */}
     </div>
   )
