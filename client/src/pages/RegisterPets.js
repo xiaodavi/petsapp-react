@@ -1,10 +1,7 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import PetForm from '../components/PetForm'
-import Button from '@material-ui/core/Button';
-
 import axios from 'axios'
 import {Image} from 'cloudinary-react'
-
 
 const RegisterPets = (props) => {
   const url = "https://api.cloudinary.com/v1_1/dynyu9aql/image/upload";
@@ -46,17 +43,11 @@ const RegisterPets = (props) => {
   return (
     <div>
       <input type="file" 
-      onChange={(event) => {
-        setImageSelected(event.target.files[0])
-      }} 
-      />
+      onChange={(event) => setImageSelected(event.target.files[0])}/>
       {imageSelected && <ImageThumb image={imageSelected} />} 
       <PetForm handleChange={handleChange}
       handleSubmit={handleSubmit} />
-      
       <button onClick={handleSubmit}>Submit</button>
-      {/* </form> */}
-      {/* <Image cloudName="dynyu9aql" publicId="https://res.cloudinary.com/dynyu9aql/image/upload" /> */}
     </div>
   )
 }
