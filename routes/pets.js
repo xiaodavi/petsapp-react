@@ -7,16 +7,6 @@ const passport = require("passport");
 const { uploader, cloudinary } = require("../configs/cloudinary");
 const { populate } = require("../models/User");
 
-// router.get("/register-pets", ensureAuthenticated, (req, res, next) => {
-//   User.findById(req.session.passport.user)
-//     .then((user) => {
-//       res.render("users/register-pets", { user: user });
-//     })
-//     .catch((err) => {
-//       next(err);
-//     });
-// });
-
 router.post('/:userId/register-pets', (req, res) => {
   const owner = req.params.userId;
   console.log(req.body)
@@ -79,15 +69,15 @@ router.post('/:userId/register-pets', (req, res) => {
 //   }
 // );
 
-// router.get("/pets", ensureAuthenticated, (req, res, next) => {
-//   const { _id } = req.user;
-//   Pet.find({ owner: _id })
-//     .populate("owner")
-//     .then((myPets) => {
-//       res.render("users/pets-details", { pets: myPets });
-//     })
-//     .catch((err) => next(err));
-// });
+router.get("/:userId/mypets", (req, res) => {
+  const ownerId = req.params.userId;
+  Pet.find({ owner: ownerId })
+    .populate("owner")
+    .then((myPets) => {
+      res.status(201).json(myPets)
+    })
+    .catch((err) => next(err));
+});
 
 // router.get("/allPets", ensureAuthenticated, (req, res, next) => {
 //   Pet.aggregate([{ $sample: { size: 1 } }])
