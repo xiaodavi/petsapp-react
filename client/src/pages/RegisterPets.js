@@ -3,6 +3,7 @@ import PetForm from '../components/PetForm'
 import Button from '@material-ui/core/Button';
 
 import axios from 'axios'
+import {Image} from 'cloudinary-react'
 
 
 const RegisterPets = (props) => {
@@ -19,9 +20,17 @@ const RegisterPets = (props) => {
     const formData = new FormData()
     formData.append('file', imageSelected)
     formData.append('upload_preset', preset)
-    axios.post(url, formData).then((res) => {
-      console.log(res)
+    axios.post(url, formData)
+    .then((res) => {
+      console.log(res);
+      const imageUrl = res.data.secure_url;
+      console.log(imageUrl)
+      axios.post(`/api/pets/${props.user._id}/register-pets`, {imageUrl:imageUrl})
+      .then(res => {
+        console.log(res)
+      }).catch(err => console.log("error while post imageUrl", err))
     })
+    .catch(err => console.log(err))
   }
 
 
@@ -59,6 +68,7 @@ const RegisterPets = (props) => {
       
       <button onClick={uploadImage}>Submit</button>
       {/* </form> */}
+      <Image cloudName="dynyu9aql" publicId="jzcscoaq92cwiqcfp2jy" />
     </div>
   )
 }

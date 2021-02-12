@@ -18,25 +18,30 @@ const { populate } = require("../models/User");
 // });
 
 router.post('/:userId/register-pets', (req, res) => {
-  const { petsname, breed } = req.body;
+  // const { petsname, breed } = req.body;
   const owner = req.params.userId;
-  const petsimage = req.body.imageUrl;
-  console.log(req.petsimage);
+  console.log(req.body)
+  const obj = JSON.parse(JSON.stringify(req.body));
+  console.log(obj)
+  const petsimage = obj.imageUrl;
   Pet.create({
-    petsname,
-    breed,
+    // petsname,
+    // breed,
     petsimage,
     owner
   })
-    .then((dbPet) => {
-      User.findByIdAndUpdate(owner, {
-        $push: { pets: dbPet._id },
-      });
+  .then((dbPet) => {
+    console.log(dbPet)
+    User.findByIdAndUpdate(owner, {
+      $push: { pets: dbPet.id },
+    }).then((dbUser) => {
+      console.log(dbUser)
+      res.status(201).json(dbUser)
     })
-    .then((dbUser) => res.status(201).json(dbUser))
-    .catch((err) => {
-      res.json(err)
-    });
+  })
+  .catch((err) => {
+    res.json(err)
+  });
 })
 
 // router.get('/getLatest', async(req, res) => {
