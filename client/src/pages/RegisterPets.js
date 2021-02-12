@@ -11,21 +11,31 @@ const RegisterPets = (props) => {
   const preset = "flmqoaes";
 
   const [imageSelected, setImageSelected] = useState("");
-  const [loading, setLoading] = useState(false) 
+  const [petsname, setPetsname] = useState("");
+  const [breed, setBreed] = useState("")
   
-  const uploadImage = () => {
-    
-    // console.log(files)
-    // setImage(files[0])
+  const handleChange = event => {
+    event.target.name === "petsname" ? setPetsname(event.target.value) 
+    : setBreed(event.target.value)
+  }
+
+  const handleSubmit = () => {
     const formData = new FormData()
     formData.append('file', imageSelected)
-    formData.append('upload_preset', preset)
+    formData.append('upload_preset', preset);
+    console.log(formData)
     axios.post(url, formData)
     .then((res) => {
       console.log(res);
       const imageUrl = res.data.secure_url;
+      const publicId = res.data.public_id
       console.log(imageUrl)
-      axios.post(`/api/pets/${props.user._id}/register-pets`, {imageUrl:imageUrl})
+      axios.post(`/api/pets/${props.user._id}/register-pets`, 
+      {imageUrl:imageUrl, 
+      publicId: publicId,
+      petsname: petsname,
+      breed: breed
+    })
       .then(res => {
         console.log(res)
       }).catch(err => console.log("error while post imageUrl", err))
@@ -33,42 +43,20 @@ const RegisterPets = (props) => {
     .catch(err => console.log(err))
   }
 
-
-  // useEffect(() => {
-  //   async function fetchImage() {
-  //     const image = await axios.get('/api/pets/getLatest');
-  //     setImage(image.data);
-  //   }
-  //   fetchImage();
-  //   // eslint-disable-next-line
-  // }, []);
-
   return (
     <div>
-    {/* <form> */}
-      {/* <label htmlFor="petsimage">Upload an Image</label> */}
       <input type="file" 
       onChange={(event) => {
         setImageSelected(event.target.files[0])
       }} 
       />
-      {/* <p>Filename: {file.name}</p>
-      <p>File type: {file.type}</p>
-      <p>File size: {file.size} bytes</p> */}
       {imageSelected && <ImageThumb image={imageSelected} />} 
-     
-
-      {/* <label htmlFor="petsname">Name: </label>
-      <input id="petsname" name="petsname" value={props.petsname} 
-      onChange={props.handleChange} type="text" />
+      <PetForm handleChange={handleChange}
+      handleSubmit={handleSubmit} />
       
-      <label htmlFor="breed">Breed: </label>
-      <input id="breed" name="breed" value={props.breed} 
-      onChange={props.handleChange} type="text" /> */}
-      
-      <button onClick={uploadImage}>Submit</button>
+      <button onClick={handleSubmit}>Submit</button>
       {/* </form> */}
-      <Image cloudName="dynyu9aql" publicId="jzcscoaq92cwiqcfp2jy" />
+      {/* <Image cloudName="dynyu9aql" publicId="https://res.cloudinary.com/dynyu9aql/image/upload" /> */}
     </div>
   )
 }

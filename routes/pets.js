@@ -18,16 +18,19 @@ const { populate } = require("../models/User");
 // });
 
 router.post('/:userId/register-pets', (req, res) => {
-  // const { petsname, breed } = req.body;
   const owner = req.params.userId;
   console.log(req.body)
   const obj = JSON.parse(JSON.stringify(req.body));
   console.log(obj)
+  const petsname = obj.petsname;
+  const breed = obj.breed;
   const petsimage = obj.imageUrl;
+  const publicId = obj.publicId;
   Pet.create({
-    // petsname,
-    // breed,
+    petsname,
+    breed,
     petsimage,
+    publicId,
     owner
   })
   .then((dbPet) => {
