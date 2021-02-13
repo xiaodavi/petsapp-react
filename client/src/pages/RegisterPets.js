@@ -35,6 +35,7 @@ const RegisterPets = (props) => {
     })
       .then(res => {
         console.log(res)
+        props.history.push('/my-pets')
       }).catch(err => console.log("error while post imageUrl", err))
     })
     .catch(err => console.log(err))

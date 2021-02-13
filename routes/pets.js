@@ -79,13 +79,13 @@ router.get("/:userId/mypets", (req, res) => {
     .catch((err) => next(err));
 });
 
-// router.get("/allPets", ensureAuthenticated, (req, res, next) => {
-//   Pet.aggregate([{ $sample: { size: 1 } }])
-//     .then((randomPet) => {
-//       res.render("users/allPets", { allPets: randomPet });
-//     })
-//     .catch((err) => next(err));
-// });
+router.get("/random", (req, res) => {
+  Pet.aggregate([{ $sample: { size: 1 } }])
+    .then((randomPet) => {
+      res.status(201).json(randomPet)
+    })
+    .catch((err) => next(err));
+});
 
 // router.get("/pets/:petsId", ensureAuthenticated, (req, res, next) => {
 //   const petsId = req.params.petsId;

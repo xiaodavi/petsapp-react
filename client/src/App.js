@@ -12,6 +12,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import RegisterPets from './pages/RegisterPets';
 import PetData from './pages/PetData';
+import Matching from './pages/Matching';
 
 function App(props) {
 
@@ -35,6 +36,9 @@ function App(props) {
 
     <Route exact path="/my-pets" 
     render={ (props) => <PetData setUser={setUser} user={user} {...props}/> } />
+
+    <Route exact path="/matching" 
+    render={ (props) => <Matching setUser={setUser} user={user} {...props}/> } />
     
     <Route exact path="/profile" 
     render={ (props) => <Login setUser={setUser} user={user} {...props}/> } />

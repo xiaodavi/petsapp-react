@@ -38,10 +38,10 @@ export default function ImgMediaCard(props) {
       </CardActionArea>
       <CardActions>
         <Button size="small" color="primary">
-          {props.buttonName1}
+          {props.buttomName1}
         </Button>
         <Button size="small" color="primary">
-          {props.buttonName2}
+          {props.buttomName2}
         </Button>
       </CardActions>
     </Card>
