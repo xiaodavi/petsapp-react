@@ -5,13 +5,8 @@ const userSchema = new Schema(
   {
     username: String,
     password: String,
-    userImg: String,
+    avatar: String,
     email: String,
-    address: {
-      city: String,
-      state: String,
-      zip: Number,
-    },
     pets: [
       {
         type: Schema.Types.ObjectId,
@@ -24,7 +19,8 @@ const userSchema = new Schema(
         ref: "User",
       },
     ],
-    googleID: String,
+    desc: String,
+    publicId: String,
   },
 
   {

@@ -15,8 +15,9 @@ const Matching = () => {
       });
   }, "")
 
-  const Wrapper = styled.div`
-  `
+  // const Wrapper = styled.div`
+  //   display
+  // `
 
   return (
     <div>
