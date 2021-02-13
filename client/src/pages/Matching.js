@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import PetCard from '../components/PetCard'
 import axios from 'axios'
 import styled from 'styled-components'
+import BottomNav from '../components/BottomNav'
 
 const Matching = () => {
 
@@ -25,6 +26,7 @@ const Matching = () => {
         buttomName1="Like"
         buttomName2="Dislike"
       />
+      <BottomNav />
     </div>
   )
 }
