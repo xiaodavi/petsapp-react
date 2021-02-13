@@ -4,6 +4,8 @@ import PetCard from '../components/PetCard'
 import styled from 'styled-components'
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
+import BottomNav from '../components/BottomNav';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -57,6 +59,7 @@ const Profile = (props) => {
      {/* <img src={user.avatar} alt={user.username} /> */}
      <h3>{user.username}</h3>
      <p>{user.desc}</p>
+     <BottomNav />
     </>
   )
 
