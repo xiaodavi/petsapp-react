@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import PetForm from '../components/PetForm'
 import axios from 'axios'
 import {Image} from 'cloudinary-react'
+import BottomNav from '../components/BottomNav'
 
 const RegisterPets = (props) => {
   const url = "https://api.cloudinary.com/v1_1/dynyu9aql/image/upload";
@@ -49,6 +50,7 @@ const RegisterPets = (props) => {
       <PetForm handleChange={handleChange}
       handleSubmit={handleSubmit} />
       <button onClick={handleSubmit}>Submit</button>
+      <BottomNav />
     </div>
   )
 }

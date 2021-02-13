@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import PetCard from '../components/PetCard'
 import styled from 'styled-components'
+import BottomNav from '../components/BottomNav'
 
 const PetData = (props) => {
 
@@ -30,6 +31,7 @@ const PetData = (props) => {
      <PetCard title={pet.petsname} image={pet.petsimage} desc={pet.breed}/>
      </Wrapper>
      )}
+     <BottomNav />
     </>
   )
 
