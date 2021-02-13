@@ -37,38 +37,6 @@ router.post('/:userId/register-pets', (req, res) => {
   });
 })
 
-// router.get('/getLatest', async(req, res) => {
-//   const getImage = await Image.findOne(). sort({_id: -1})
-//   res.json(getImage.imageUrl);
-// })
-
-// router.post("/:userId/register-pets",
-//   uploader.single("petsimage"),
-//   (req, res) => {
-//     const { petsname, breed } = req.body;
-//     const owner = req.params.userId;
-//     const petsimage = req.file.path;
-//     const publicId = req.file.filename;
-//     console.log(req.file);
-//     Pet.create({
-//       petsname,
-//       breed,
-//       petsimage,
-//       owner: owner,
-//       publicId,
-//     })
-//       .then((dbPet) => {
-//         User.findByIdAndUpdate(owner, {
-//           $push: { pets: dbPet._id },
-//         });
-//       })
-//       .then((dbUser) => res.status(201).json(dbUser))
-//       .catch((err) => {
-//         res.json(err)
-//       });
-//   }
-// );
-
 router.get("/:userId/mypets", (req, res) => {
   const ownerId = req.params.userId;
   Pet.find({ owner: ownerId })
@@ -79,13 +47,13 @@ router.get("/:userId/mypets", (req, res) => {
     .catch((err) => next(err));
 });
 
-// router.get("/allPets", ensureAuthenticated, (req, res, next) => {
-//   Pet.aggregate([{ $sample: { size: 1 } }])
-//     .then((randomPet) => {
-//       res.render("users/allPets", { allPets: randomPet });
-//     })
-//     .catch((err) => next(err));
-// });
+router.get("/random", (req, res) => {
+  Pet.aggregate([{ $sample: { size: 1 } }])
+    .then((randomPet) => {
+      res.status(201).json(randomPet)
+    })
+    .catch((err) => next(err));
+});
 
 // router.get("/pets/:petsId", ensureAuthenticated, (req, res, next) => {
 //   const petsId = req.params.petsId;
