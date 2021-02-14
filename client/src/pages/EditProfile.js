@@ -3,6 +3,7 @@ import UserForm from '../components/UserForm'
 import axios from 'axios'
 import {Image} from 'cloudinary-react'
 import BottomNav from '../components/BottomNav'
+import styled from 'styled-components'
 
 const EditProfile = (props) => {
   const url = "https://api.cloudinary.com/v1_1/dynyu9aql/image/upload";
@@ -42,16 +43,27 @@ const EditProfile = (props) => {
     .catch(err => console.log(err))
   }
 
+  const Wrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 600px
+  `
+
   return (
-    <div>
+    <>
+    <Wrapper>
+      <label>Pick an image</label>
       <input type="file" 
       onChange={(event) => setImageSelected(event.target.files[0])}/>
       {imageSelected && <ImageThumb image={imageSelected} />} 
       <UserForm handleChange={handleChange}
       handleSubmit={handleSubmit} />
       <button onClick={handleSubmit}>Submit</button>
-      <BottomNav />
-    </div>
+    </Wrapper>
+    <BottomNav />
+    </>
   )
 }
 

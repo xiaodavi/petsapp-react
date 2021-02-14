@@ -41,23 +41,26 @@ const Profile = (props) => {
 
   const Wrapper = styled.div`
     display: flex;
-    display-direction: column;
-    justify-content: center;
-    align-items: center
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 600px
   `
 
   return (
     <>
-    <h1>My Profile</h1>
-     {/* {pets.map(pet => <Wrapper>
-     <PetCard title={pet.petsname} image={pet.petsimage} desc={pet.breed}/>
-     </Wrapper> */}
-     {/* )} */}
-     <Avatar alt={user.username} src={user.avatar} className={classes.large} />
-     {/* <img src={user.avatar} alt={user.username} /> */}
-     <h3>{user.username}</h3>
-     <p>{user.desc}</p>
-     <BottomNav />
+      <Wrapper>
+        <h1>My Profile</h1>
+        {/* {pets.map(pet => <Wrapper>
+        <PetCard title={pet.petsname} image={pet.petsimage} desc={pet.breed}/>
+        </Wrapper> */}
+        {/* )} */}
+        <Avatar alt={user.username} src={user.avatar} className={classes.large} />
+        {/* <img src={user.avatar} alt={user.username} /> */}
+        <h3>{user.username}</h3>
+        <p>{user.desc}</p>
+      </Wrapper>
+      <BottomNav />
     </>
   )
 

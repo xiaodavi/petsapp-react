@@ -17,18 +17,23 @@ const Matching = () => {
       });
   }, "")
 
-  // const Wrapper = styled.div`
-  //   display
-  // `
+  const Wrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 600px
+  `
 
   return (
-    <div>
+    <>
+    <Wrapper>
       <PetCard title={randomPet.petsname} image={randomPet.petsimage} desc={randomPet.breed}
         buttomName1={<HeartTwoTone twoToneColor="#eb2f96" style={{ fontSize: '30px'}}/>}
         buttomName2={<SmileTwoTone twoToneColor="#52c41a" rotate={180} style={{ fontSize: '30px'}}/>}
       />
-      <BottomNav />
-    </div>
+    </Wrapper>
+    <BottomNav />
+    </>
   )
 }
 
