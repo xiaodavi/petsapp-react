@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import {logout} from '../services/auth'
 
 const TopNav = (props) => {
+  
   console.log(props.user);
   const handleLogout = props => {
-    
     logout().then(() => {
       props.setUser(null)
     })
@@ -13,9 +13,16 @@ const TopNav = (props) => {
 
   return (
     <div>
-     
+    {
+      props.user ? (<Link to="/" onClick={() => handleLogout(props.user)}>Logout</Link>) :
+      ( <>
         <Link to='/signup'>Signup</Link>
         <Link to="/login">Login</Link>
+        </>
+      )
+    }
+        
+        
        
     </div>
   )
