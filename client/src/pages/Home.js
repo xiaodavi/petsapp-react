@@ -13,8 +13,10 @@ const Home = (props) => {
   const Content = styled.div`
   background-image: url(${backgroundImg});
   background-position: calc(100% - 0px) calc(100% - 0px);
-  width: 90%;
-  height: 2000px;
+  ${'' /* background-repeat: no-repeat; */}
+  ${'' /* background-size: auto; */}
+  width: 100%;
+  height: 600px;
   opacity: 0.5;
   position: absolute;
   z-index: -1
@@ -35,6 +37,7 @@ const Home = (props) => {
     {/* <LayoutStyle> */}
 
     {props.user ? (<>
+    <TopNav user={props.user} setUser={props.setUser} {...props} />
       <Wrapper>
       <h1>Welcome, {props.user.username}</h1>
       </Wrapper>
@@ -43,7 +46,7 @@ const Home = (props) => {
     :
     (
       <> 
-      <TopNav {...props} />
+      <TopNav user={props.user} setUser={props.setUser} {...props}/>
       <Wrapper>
       <h1>Hi welcome to the petsapp, find your dogmate here</h1>
       <Link to="/signup"><MainButton title="GET STARTED"/></Link>

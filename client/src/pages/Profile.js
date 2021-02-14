@@ -27,7 +27,6 @@ const Profile = (props) => {
 
   const classes = useStyles();
 
-
   const [user, setUser] = useState([props.user])
   console.log(user)
 
@@ -42,15 +41,19 @@ const Profile = (props) => {
   const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    height: 600px
+    height: 500px
+  `
+  const Headline = styled.h1`
+    text-align: center
   `
 
   return (
     <>
+      <Headline>My Profile</Headline>
       <Wrapper>
-        <h1>My Profile</h1>
+        
         {/* {pets.map(pet => <Wrapper>
         <PetCard title={pet.petsname} image={pet.petsimage} desc={pet.breed}/>
         </Wrapper> */}

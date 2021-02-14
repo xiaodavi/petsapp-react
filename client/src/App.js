@@ -45,7 +45,7 @@ function App(props) {
     <Route exact path="/edit-profile" 
     render={ (props) => <EditProfile setUser={setUser} user={user} {...props}/> } />
 
-<Route exact path="/profile" 
+    <Route exact path="/profile" 
     render={ (props) => <Profile setUser={setUser} user={user} {...props}/> } />
     </Switch>
   );

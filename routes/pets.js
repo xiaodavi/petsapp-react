@@ -2,10 +2,6 @@ const express = require("express");
 const User = require("../models/User");
 const Pet = require("../models/Pet");
 const router = express.Router();
-const bcrypt = require("bcrypt");
-const passport = require("passport");
-const { uploader, cloudinary } = require("../configs/cloudinary");
-const { populate } = require("../models/User");
 
 router.post('/:userId/register-pets', (req, res) => {
   const owner = req.params.userId;
@@ -51,6 +47,15 @@ router.get("/random", (req, res) => {
   Pet.aggregate([{ $sample: { size: 1 } }])
     .then((randomPet) => {
       res.status(201).json(randomPet)
+    })
+    .catch((err) => next(err));
+});
+
+router.get("/all", (req, res) => {
+  Pet.find({})
+    .then((pets) => {
+      console.log(pets)
+      res.status(201).json(pets)
     })
     .catch((err) => next(err));
 });
