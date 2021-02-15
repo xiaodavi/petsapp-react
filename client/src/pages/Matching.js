@@ -7,7 +7,7 @@ import { SmileTwoTone, HeartTwoTone } from '@ant-design/icons';
 
 const Matching = (props) => {
 
-  // const [pets, setPets] = useState([])
+  const [pets, setPets] = useState([])
   
   const [randomPet, setRandomPet] = useState("")
   const [loading, setLoading] = useState(true)
@@ -15,16 +15,17 @@ const Matching = (props) => {
   const [match, setMatch] = useState(false)
 
   useEffect(async() => {
-    const result = await axios.get(`/api/pets/random`)
+    const result = await axios.get(`/api/pets/all`)
     console.log(result.data)
-    setRandomPet(result.data[0]);
+    setPets(result.data)
+    // setRandomPet(result.data[0]);
     setLoading(false)
 }, [])
 
 
   const handleLike = async (event) => {
     event?.preventDefault();
-    const result = await axios.post(`/api/pets/${props.user._id}/like`, {"randomPet": randomPet})
+    const result = await axios.post(`/api/pets/${props.user._id}/random`, {"randomPet": randomPet})
     const currentUser = props.user;
     const favUser = result.data.favoritedUser
     if(favUser.favorites.includes(currentUser._id)){
