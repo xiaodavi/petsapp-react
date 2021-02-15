@@ -174,26 +174,31 @@ router.get("/all", (req, res) => {
 //   { message: req.flash("You liked this pet 💛") });
 // });
 
-// router.post("/pets/like", ensureAuthenticated, (req, res, next) => {
-//   const likedPersonId = req.body.id;
-//   const loggedInUserId = req.user._id;
+router.post("/:userId/like", async (req, res) => {
+  const currentUserId = req.params.userId;
+  const favoritedUserId = req.body.randomPet.owner;
 
-//   User.findByIdAndUpdate(loggedInUserId, {
-//     $push: { likedPeople: likedPersonId },
-//   })
-//     .then((loggedInUserfromDB) => {
-//       User.findById(likedPersonId).then((likedPersonfromDB) => {
-//         if (likedPersonfromDB.likedPeople.includes(loggedInUserId)) {
-//           res.render("match/matchPage", { likedPersonfromDB, loggedInUserId });
-//         } else {
-//           res.redirect("/allPets");
-//         }
-//       });
-//     })
-//     .catch((err) => {
-//       next(err);
-//     });
-// });
+  try{
+    const currentUser = await User.findByIdAndUpdate(currentUserId, {
+      $push: { favorites: favoritedUserId },
+    });
+    // res.json(currentUser)
+    const favoritedUser = await User.findByIdAndUpdate(favoritedUserId, {
+      $push: {favoritedBy: currentUserId}
+    }) 
+    res.json({currentUser: currentUser,favoritedUser:favoritedUser })
+    // if(currentUser.favoritedBy.includes(favoritedUserId)) {
+    //   res.status
+    // }
+    // console.log(favoritedUser)
+    
+  } catch (err) { 
+   console.log(err);
+  }
+
+  
+
+});
 
 // router.get("/movie/delete/:id", (req, res, next) => {
 //   Movie.findByIdAndDelete(req.params.id)

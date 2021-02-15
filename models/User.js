@@ -7,19 +7,21 @@ const userSchema = new Schema(
     password: String,
     avatar: String,
     email: String,
+    desc: String,
     pets: [
       {
         type: Schema.Types.ObjectId,
         ref: "Pet",
       },
     ],
-    likedPeople: [
-      {
+    favorites: [{
         type: Schema.Types.ObjectId,
         ref: "User",
-      },
-    ],
-    desc: String,
+      }],
+    favoritedBy: [{
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    }],
     publicId: String,
   },
 

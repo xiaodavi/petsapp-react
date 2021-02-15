@@ -23,7 +23,6 @@ const Home = (props) => {
   position: absolute;
   z-index: -1
 `
-
   const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
@@ -32,7 +31,6 @@ const Home = (props) => {
     position: relative;
     height: 600px;
   `
-
   const StyledImg = styled.img`
     height: 500px;
     width: 400px
@@ -46,7 +44,7 @@ const Home = (props) => {
     {props.user ? (<>
     <TopNav user={props.user} setUser={props.setUser} {...props} />
       <Wrapper>
-      <h1>Welcome, {props.user.username}</h1>
+      <h1>Welcome {props.user.username}</h1>
       <StyledImg src={Logo_2} alt="everyday-life" />
       </Wrapper>
       <BottomNav />

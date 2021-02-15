@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { HomeTwoTone, HeartTwoTone, MessageTwoTone, ContactsTwoTone } from '@ant-design/icons';
+import { HomeTwoTone, HeartTwoTone, MessageTwoTone, ContactsTwoTone, CameraTwoTone } from '@ant-design/icons';
 import {Link} from 'react-router-dom'
 
 const BottomNav = () => {
@@ -21,6 +21,10 @@ const BottomNav = () => {
     <HomeTwoTone style={{ fontSize: '40px', margin: "10px"}} twoToneColor="#eb2f96"/>
     </Link>
 
+    <Link to="/register-pets">
+    <CameraTwoTone style={{ fontSize: '40px', margin: "10px" }} twoToneColor="#eb2f96"/>
+    </Link>
+
     <Link to="/matching">
     <HeartTwoTone style={{ fontSize: '40px', margin: "10px" }} twoToneColor="#eb2f96"/>
     </Link>
@@ -32,6 +36,8 @@ const BottomNav = () => {
     <Link to="/profile">
     <ContactsTwoTone style={{ fontSize: '40px', margin: "10px" }} twoToneColor="#eb2f96"/>
     </Link>
+
+    
     </Wrapper>
   )
 }
