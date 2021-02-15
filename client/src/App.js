@@ -15,6 +15,7 @@ import PetData from './pages/PetData';
 import Matching from './pages/Matching';
 import EditProfile from './pages/EditProfile'
 import Profile from './pages/Profile'
+import Chat from './pages/Chat'
 
 function App(props) {
 
@@ -47,6 +48,9 @@ function App(props) {
 
     <Route exact path="/profile" 
     render={ (props) => <Profile setUser={setUser} user={user} {...props}/> } />
+
+    <Route exact path="/chat" 
+    render={ (props) => <Chat setUser={setUser} user={user} {...props}/> } />
     </Switch>
   );
 }

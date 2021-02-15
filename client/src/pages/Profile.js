@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import {Link} from 'react-router-dom'
 import axios from 'axios'
 import PetCard from '../components/PetCard'
 import styled from 'styled-components'
@@ -58,7 +59,9 @@ const Profile = (props) => {
         <PetCard title={pet.petsname} image={pet.petsimage} desc={pet.breed}/>
         </Wrapper> */}
         {/* )} */}
+        <Link to="/edit-profile">
         <Avatar alt={user.username} src={user.avatar} className={classes.large} />
+        </Link>
         {/* <img src={user.avatar} alt={user.username} /> */}
         <h3>{user.username}</h3>
         <p>{user.desc}</p>

@@ -5,32 +5,49 @@ import styled from 'styled-components'
 import BottomNav from '../components/BottomNav'
 import { SmileTwoTone, HeartTwoTone } from '@ant-design/icons';
 
-const Matching = () => {
+const Matching = (props) => {
 
   const [pets, setPets] = useState([])
-  const [loading, setLoading] = useState(true)
   
-  const shuffle = arr => {
-    for(let i = arr.length - 1; i >0; i--) {
-      let j = Math.floor(Math.random()*(i+1));
-      [arr[i], arr[j]] = [arr[j], arr[i]]
+  const [randomPet, setRandomPet] = useState("")
+  const [loading, setLoading] = useState(true)
+  const [favoritedUser, setFavoritedUser] = useState("")
+  const [match, setMatch] = useState(false)
+
+  useEffect(async() => {
+    const result = await axios.get(`/api/pets/all`)
+    console.log(result.data)
+    setPets(result.data)
+    // setRandomPet(result.data[0]);
+    setLoading(false)
+}, [])
+
+
+  const handleLike = async (event) => {
+    event?.preventDefault();
+    const result = await axios.post(`/api/pets/${props.user._id}/random`, {"randomPet": randomPet})
+    const currentUser = props.user;
+    const favUser = result.data.favoritedUser
+    if(favUser.favorites.includes(currentUser._id)){
+      setFavoritedUser(favUser)
+      setMatch(true)
+      props.history.push("/chat")
+    } else {
+      console.log(result.data)
+      setFavoritedUser(favUser)
+      // setLoading(true)
+      props.history.push('/matching')
     }
   }
 
-  
-  useEffect(() => {
-    axios.get(`/api/pets/all`)
-    .then(res => {
-    console.log(res.data)
-    setPets(res.data);
-    setLoading(false)
-    console.log(pets)
-    shuffle(pets);
-    });
-}, [])
+  const handleDislike = (event) => {
+    event.preventDefault()
+  }
 
-  
-  const random = Math.floor(Math.random()*(pets.length-1-0+1) + 0)
+
+  // useEffect(()=> {
+  //   handleLike();
+  // }, );
 
   const Wrapper = styled.div`
     display: flex;
@@ -43,10 +60,13 @@ const Matching = () => {
     <>
     <Wrapper>
     {loading ? <> </> :
-    
-      <PetCard title={pets[random].petsname} image={pets[random].petsimage} desc={pets[random].breed}
-        buttomName1={<HeartTwoTone twoToneColor="#eb2f96" style={{ fontSize: '30px'}}/>}
-        buttomName2={<SmileTwoTone twoToneColor="#52c41a" rotate={180} style={{ fontSize: '30px'}}/>}
+      <PetCard 
+      title={randomPet.petsname} 
+      image={randomPet.petsimage} 
+      desc={randomPet.breed}
+      handleLike={handleLike} handleDislike={handleDislike}
+      buttomName1={<HeartTwoTone twoToneColor="#eb2f96" style={{ fontSize: '30px'}} />}
+      buttomName2={<SmileTwoTone twoToneColor="#52c41a" rotate={180} style={{ fontSize: '30px'}}/>}
       />
     }
     </Wrapper>

@@ -37,10 +37,10 @@ export default function ImgMediaCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={props.handleLike}>
           {props.buttomName1}
         </Button>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={props.handleDislike}>
           {props.buttomName2}
         </Button>
       </CardActions>
