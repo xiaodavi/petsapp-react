@@ -5,7 +5,7 @@ import {logout} from '../services/auth'
 const TopNav = (props) => {
   
   console.log(props.user);
-  const handleLogout = props => {
+  const handleLogout = () => {
     logout().then(() => {
       props.setUser(null)
     })

@@ -6,12 +6,14 @@ import backgroundImg from '../images/Dating-IN-Your-50s.jpg'
 import TopNav from '../components/TopNav'
 import BottomNav from '../components/BottomNav'
 import { Link } from 'react-router-dom'
+import Logo from '../images/undraw_Appreciation_re_p6rl.svg'
+import Logo_2 from '../images/undraw_everyday_life_hjnw.svg'
 
 
 const Home = (props) => {
 
   const Content = styled.div`
-  background-image: url(${backgroundImg});
+  ${'' /* background-image: url(${backgroundImg}); */}
   background-position: calc(100% - 0px) calc(100% - 0px);
   ${'' /* background-repeat: no-repeat; */}
   ${'' /* background-size: auto; */}
@@ -30,6 +32,11 @@ const Home = (props) => {
     position: relative;
     height: 600px;
   `
+
+  const StyledImg = styled.img`
+    height: 500px;
+    width: 400px
+  `
   return (
     <>
     <Content>
@@ -40,6 +47,7 @@ const Home = (props) => {
     <TopNav user={props.user} setUser={props.setUser} {...props} />
       <Wrapper>
       <h1>Welcome, {props.user.username}</h1>
+      <StyledImg src={Logo_2} alt="everyday-life" />
       </Wrapper>
       <BottomNav />
       </>)
@@ -49,8 +57,9 @@ const Home = (props) => {
       <TopNav user={props.user} setUser={props.setUser} {...props}/>
       <Wrapper>
       <h1>Hi welcome to the petsapp, find your dogmate here</h1>
+      <img src={Logo} alt="home-image" />
       <Link to="/signup"><MainButton title="GET STARTED"/></Link>
-      <Link to="/login"><MainButton title="LOGIN" /></Link>
+      {/* <Link to="/login"><MainButton title="LOGIN" /></Link> */}
       </Wrapper>
       </>) 
     }
