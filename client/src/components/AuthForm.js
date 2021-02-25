@@ -1,6 +1,7 @@
 import React from 'react'
 import 'antd/dist/antd.css';
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, Checkbox, Select } from 'antd';
+const {option} = Select;
 
 const layout = {
   labelCol: {
@@ -17,11 +18,12 @@ const tailLayout = {
   },
 };
 
-const AuthForm = (props) => {
-
-  // const onFinish = (values) => {
-  //   console.log('Success:', values);
-  // };
+const AuthForm = () => {
+  const [form] = Form.useForm()
+  
+  const onFinish = (values) => {
+    console.log('Success:', values);
+  };
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
@@ -29,23 +31,23 @@ const AuthForm = (props) => {
 
   return (
     <Form
+      form={form}
       {...layout}
-      name="basic"
-      initialValues={{
-        remember: true,
-      }}
-      // onSubmit={props.handleSubmit}
-      onFinish={props.handleSubmit}
+      name="register"
+      // initialValues={{
+      //   remember: true,
+      // }}
+      onFinish={onFinish}
       onFinishFailed={onFinishFailed}
     >
       <Form.Item
         label="Email"
         name="email"
-        onValuesChange={props.handleChange}
+        style={{width: "400px"}}
         rules={[
           {
             required: true,
-            message: 'Please input your email!',
+            message: 'Please input your username!',
           },
         ]}
       >
@@ -55,7 +57,7 @@ const AuthForm = (props) => {
       <Form.Item
         label="Password"
         name="password"
-        
+        style={{width: "400px"}}
         rules={[
           {
             required: true,
@@ -66,15 +68,15 @@ const AuthForm = (props) => {
         <Input.Password />
       </Form.Item>
 
-      <Form.Item {...tailLayout} name="remember" valuePropName="checked">
+      {/* <Form.Item {...tailLayout} name="remember" valuePropName="checked">
         <Checkbox>Remember me</Checkbox>
-      </Form.Item>
+      </Form.Item> */}
 
-      <Form.Item {...tailLayout}>
+      {/* <Form.Item {...tailLayout}>
         <Button type="primary" htmlType="submit">
-        {props.buttonName}
+          Submit
         </Button>
-      </Form.Item>
+      </Form.Item> */}
     </Form>
   );
   // return (
