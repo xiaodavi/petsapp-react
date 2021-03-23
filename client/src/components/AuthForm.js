@@ -5,16 +5,16 @@ const {option} = Select;
 
 const layout = {
   labelCol: {
-    span: 8,
+    span: 4,
   },
   wrapperCol: {
-    span: 16,
+    span: 12,
   },
 };
 const tailLayout = {
   wrapperCol: {
-    offset: 8,
-    span: 16,
+    offset: 4,
+    span: 12,
   },
 };
 
@@ -43,7 +43,7 @@ const AuthForm = () => {
       <Form.Item
         label="Email"
         name="email"
-        style={{width: "400px"}}
+        // style={{width: "400px"}}
         rules={[
           {
             required: true,
@@ -57,7 +57,8 @@ const AuthForm = () => {
       <Form.Item
         label="Password"
         name="password"
-        style={{width: "400px"}}
+        // style={{width: "400px"}}
+        hasFeedback
         rules={[
           {
             required: true,
@@ -68,15 +69,15 @@ const AuthForm = () => {
         <Input.Password />
       </Form.Item>
 
-      {/* <Form.Item {...tailLayout} name="remember" valuePropName="checked">
+      <Form.Item {...tailLayout} name="remember" valuePropName="checked">
         <Checkbox>Remember me</Checkbox>
-      </Form.Item> */}
+      </Form.Item>
 
-      {/* <Form.Item {...tailLayout}>
+      <Form.Item {...tailLayout}>
         <Button type="primary" htmlType="submit">
           Submit
         </Button>
-      </Form.Item> */}
+      </Form.Item>
     </Form>
   );
   // return (
